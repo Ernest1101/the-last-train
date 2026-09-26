@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lasttrain:block/book_stack"
+    }
+  }
+}

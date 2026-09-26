@@ -1,0 +1,10 @@
+{
+ "variants": {
+  "lit=false": {
+   "model": "lasttrain:block/chandelier"
+  },
+  "lit=true": {
+   "model": "lasttrain:block/chandelier"
+  }
+ }
+}

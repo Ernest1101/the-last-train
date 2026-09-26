@@ -1,0 +1,44 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "lasttrain:block/crate",
+    "side": "lasttrain:block/cabinet_side",
+    "top": "lasttrain:block/cabinet_top",
+    "inside": "lasttrain:block/cabinet_inside",
+    "crate": "lasttrain:block/crate"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#crate"
+        },
+        "south": {
+          "texture": "#crate"
+        },
+        "east": {
+          "texture": "#crate"
+        },
+        "west": {
+          "texture": "#crate"
+        },
+        "up": {
+          "texture": "#crate"
+        },
+        "down": {
+          "texture": "#crate"
+        }
+      }
+    }
+  ]
+}

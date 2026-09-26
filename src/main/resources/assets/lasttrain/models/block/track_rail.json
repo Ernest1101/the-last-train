@@ -1,0 +1,101 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "lasttrain:block/rail_steel",
+    "sleepers": "lasttrain:block/track_sleepers",
+    "rail": "lasttrain:block/rail_steel"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        1,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#sleepers"
+        },
+        "south": {
+          "texture": "#sleepers"
+        },
+        "east": {
+          "texture": "#sleepers"
+        },
+        "west": {
+          "texture": "#sleepers"
+        },
+        "up": {
+          "texture": "#sleepers"
+        },
+        "down": {
+          "texture": "#sleepers"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        1,
+        1
+      ],
+      "to": [
+        16,
+        3,
+        3
+      ],
+      "faces": {
+        "up": {
+          "texture": "#rail",
+          "uv": [
+            0,
+            6,
+            16,
+            8
+          ]
+        },
+        "north": {
+          "texture": "#rail",
+          "uv": [
+            0,
+            6,
+            16,
+            8
+          ]
+        },
+        "south": {
+          "texture": "#rail",
+          "uv": [
+            0,
+            6,
+            16,
+            8
+          ]
+        },
+        "east": {
+          "texture": "#rail",
+          "uv": [
+            6,
+            6,
+            8,
+            8
+          ]
+        },
+        "west": {
+          "texture": "#rail",
+          "uv": [
+            6,
+            6,
+            8,
+            8
+          ]
+        }
+      }
+    }
+  ]
+}

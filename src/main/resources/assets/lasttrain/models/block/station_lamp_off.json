@@ -1,0 +1,6 @@
+{
+  "parent": "lasttrain:block/station_lamp",
+  "textures": {
+    "glass": "lasttrain:block/lamp_glass_off"
+  }
+}

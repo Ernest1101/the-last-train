@@ -1,0 +1,210 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.doll.idle": {
+      "loop": true,
+      "animation_length": 5.0,
+      "bones": {
+        "head": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              20
+            ],
+            "2.4": [
+              0,
+              0,
+              20
+            ],
+            "2.5": [
+              0,
+              25,
+              -15
+            ],
+            "5.0": [
+              0,
+              0,
+              20
+            ]
+          }
+        }
+      }
+    },
+    "animation.doll.turned": {
+      "loop": true,
+      "animation_length": 1.0,
+      "bones": {
+        "head": {
+          "rotation": {
+            "0.0": [
+              0,
+              180,
+              12
+            ],
+            "1.0": [
+              0,
+              180,
+              12
+            ]
+          }
+        }
+      }
+    },
+    "animation.doll.walk": {
+      "loop": true,
+      "animation_length": 0.5,
+      "bones": {
+        "leg_left": {
+          "rotation": [
+            "math.sin(query.anim_time*720)*(32)",
+            0,
+            0
+          ]
+        },
+        "leg_right": {
+          "rotation": [
+            "math.sin(query.anim_time*720)*(-32)",
+            0,
+            0
+          ]
+        },
+        "arm_left": {
+          "rotation": [
+            "-80+math.sin(query.anim_time*720)*(8)",
+            0,
+            -6
+          ]
+        },
+        "arm_right": {
+          "rotation": [
+            "-80+math.sin(query.anim_time*720)*(-8)",
+            0,
+            6
+          ]
+        },
+        "body": {
+          "rotation": [
+            0,
+            0,
+            "math.sin(query.anim_time*720)*(7)"
+          ],
+          "position": [
+            0,
+            "math.abs(math.sin(query.anim_time*720))*0.4",
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            0,
+            0,
+            "math.sin(query.anim_time*360)*(14)"
+          ]
+        }
+      }
+    },
+    "animation.doll.sit": {
+      "loop": true,
+      "animation_length": 4.0,
+      "bones": {
+        "root": {
+          "position": [
+            0,
+            -3,
+            0
+          ]
+        },
+        "leg_left": {
+          "rotation": [
+            -90,
+            0,
+            -8
+          ]
+        },
+        "leg_right": {
+          "rotation": [
+            -90,
+            0,
+            8
+          ]
+        },
+        "arm_left": {
+          "rotation": [
+            -25,
+            0,
+            -12
+          ]
+        },
+        "arm_right": {
+          "rotation": [
+            -25,
+            0,
+            12
+          ]
+        },
+        "head": {
+          "rotation": [
+            8,
+            0,
+            "22+math.sin(query.anim_time*90)*(4)"
+          ]
+        }
+      }
+    },
+    "animation.doll.corner": {
+      "loop": true,
+      "animation_length": 4.0,
+      "bones": {
+        "head": {
+          "rotation": [
+            28,
+            0,
+            "math.sin(query.anim_time*90)*(3)"
+          ]
+        },
+        "arm_left": {
+          "rotation": [
+            0,
+            0,
+            -2
+          ]
+        },
+        "arm_right": {
+          "rotation": [
+            0,
+            0,
+            2
+          ]
+        }
+      }
+    },
+    "animation.doll.arms": {
+      "loop": true,
+      "animation_length": 3.0,
+      "bones": {
+        "arm_left": {
+          "rotation": [
+            "-150+math.sin(query.anim_time*120)*(5)",
+            0,
+            -12
+          ]
+        },
+        "arm_right": {
+          "rotation": [
+            "-150+math.sin(query.anim_time*120)*(-5)",
+            0,
+            12
+          ]
+        },
+        "head": {
+          "rotation": [
+            -18,
+            0,
+            10
+          ]
+        }
+      }
+    }
+  }
+}

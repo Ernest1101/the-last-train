@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=true": {
+      "model": "lasttrain:block/station_lamp"
+    },
+    "lit=false": {
+      "model": "lasttrain:block/station_lamp_off"
+    }
+  }
+}

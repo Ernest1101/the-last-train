@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lasttrain:block/cabinet_top",
+    "side": "lasttrain:block/old_bookshelf"
+  }
+}

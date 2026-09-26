@@ -1,0 +1,18 @@
+{
+ "format_version": "1.8.0",
+ "animations": {
+  "animation.grandfather_clock.swing": {
+   "loop": true,
+   "animation_length": 2.0,
+   "bones": {
+    "pendulum": {
+     "rotation": [
+      0,
+      0,
+      "math.sin(query.anim_time*180)*12"
+     ]
+    }
+   }
+  }
+ }
+}

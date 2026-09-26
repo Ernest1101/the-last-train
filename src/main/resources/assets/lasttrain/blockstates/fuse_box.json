@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,powered=false": {
+      "model": "lasttrain:block/fuse_box"
+    },
+    "facing=north,powered=true": {
+      "model": "lasttrain:block/fuse_box_on"
+    },
+    "facing=east,powered=false": {
+      "model": "lasttrain:block/fuse_box",
+      "y": 90
+    },
+    "facing=east,powered=true": {
+      "model": "lasttrain:block/fuse_box_on",
+      "y": 90
+    },
+    "facing=south,powered=false": {
+      "model": "lasttrain:block/fuse_box",
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "lasttrain:block/fuse_box_on",
+      "y": 180
+    },
+    "facing=west,powered=false": {
+      "model": "lasttrain:block/fuse_box",
+      "y": 270
+    },
+    "facing=west,powered=true": {
+      "model": "lasttrain:block/fuse_box_on",
+      "y": 270
+    }
+  }
+}

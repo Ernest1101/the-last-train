@@ -1,0 +1,16 @@
+{
+ "variants": {
+  "facing=north": {
+   "model": "lasttrain:block/grandfather_clock"
+  },
+  "facing=south": {
+   "model": "lasttrain:block/grandfather_clock"
+  },
+  "facing=east": {
+   "model": "lasttrain:block/grandfather_clock"
+  },
+  "facing=west": {
+   "model": "lasttrain:block/grandfather_clock"
+  }
+ }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "lasttrain:block/cabinet",
+  "textures": {
+    "front": "lasttrain:block/display_front",
+    "inside": "lasttrain:block/display_inside"
+  }
+}

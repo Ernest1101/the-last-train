@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "lasttrain",
+  "version": "${version}",
+  "name": "The Last Train",
+  "description": "Bodycam horror. A blind monster hunts by sound in a dark house. Find the key, hold your breath, and catch the last train.",
+  "authors": ["ernest"],
+  "license": "All Rights Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.lasttrain.LastTrain"],
+    "client": ["com.lasttrain.client.LastTrainClient"],
+    "fabric-gametest": ["com.lasttrain.game.LastTrainGameTests", "com.lasttrain.game.LastTrainPlaythroughTests"]
+  },
+  "mixins": ["lasttrain.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*",
+    "geckolib": ">=4.4",
+    "veil": "*"
+  }
+}

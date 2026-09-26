@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "lasttrain:block/boarded_door_top"
+    },
+    "half=lower": {
+      "model": "lasttrain:block/boarded_door_bottom"
+    }
+  }
+}

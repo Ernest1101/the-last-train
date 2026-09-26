@@ -1,0 +1,60 @@
+plugins {
+	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	maven { url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+	maven { url = 'https://maven.blamejared.com/' }
+	mavenCentral()
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings loom.officialMojangMappings()
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	modImplementation "software.bernie.geckolib:geckolib-fabric-1.20.1:${project.geckolib_version}"
+	modImplementation "foundry.veil:Veil-fabric-1.20.1:${project.veil_version}"
+	// ship Veil inside our jar so players do not need to install it separately
+	include "foundry.veil:Veil-fabric-1.20.1:${project.veil_version}"
+}
+
+loom {
+	runs {
+		// ./gradlew runGametest - runs the GameTests on a real server and exits
+		gametest {
+			server()
+			name "Game Test"
+			vmArg "-Dfabric-api.gametest"
+			vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory.get()}/gametest/junit.xml"
+			runDir "build/gametest"
+		}
+	}
+}
+
+processResources {
+	def version = project.version
+	inputs.property "version", version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 17
+	it.options.encoding = 'UTF-8'
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}

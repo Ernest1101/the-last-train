@@ -1,0 +1,205 @@
+{
+  "ambient.drone": {
+    "sounds": [
+      {
+        "name": "lasttrain:drone",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.clock": {
+    "sounds": [
+      "lasttrain:clock"
+    ],
+    "subtitle": "subtitles.lasttrain.clock"
+  },
+  "ambient.lullaby": {
+    "sounds": [
+      {
+        "name": "lasttrain:lullaby",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.lasttrain.lullaby"
+  },
+  "ambient.whisper": {
+    "sounds": [
+      "lasttrain:whisper1",
+      "lasttrain:whisper2"
+    ],
+    "subtitle": "subtitles.lasttrain.whisper"
+  },
+  "ambient.static": {
+    "sounds": [
+      "lasttrain:static"
+    ]
+  },
+  "block.creak": {
+    "sounds": [
+      "lasttrain:creak_real1",
+      "lasttrain:creak_real2",
+      "lasttrain:creak_real3",
+      "lasttrain:creak_real4",
+      "lasttrain:creak_real5",
+      "lasttrain:creak_real6",
+      "lasttrain:creak_real7",
+      "lasttrain:creak_real8",
+      "lasttrain:creak_real9",
+      "lasttrain:creak_real10"
+    ],
+    "subtitle": "subtitles.lasttrain.creak"
+  },
+  "entity.doll.giggle": {
+    "sounds": [
+      "lasttrain:giggle"
+    ],
+    "subtitle": "subtitles.lasttrain.giggle"
+  },
+  "item.flashlight.click": {
+    "sounds": [
+      "lasttrain:click"
+    ],
+    "subtitle": "subtitles.lasttrain.click"
+  },
+  "ui.rewind": {
+    "sounds": [
+      "lasttrain:rewind"
+    ]
+  },
+  "entity.doppelganger.scream": {
+    "sounds": [
+      "lasttrain:doppel_scream"
+    ],
+    "subtitle": "subtitles.lasttrain.doppel_scream"
+  },
+  "entity.blind_one.breathe": {
+    "sounds": [
+      {
+        "name": "lasttrain:blind/breathe1",
+        "pitch": 0.85
+      },
+      {
+        "name": "lasttrain:blind/breathe2",
+        "pitch": 0.85
+      },
+      {
+        "name": "lasttrain:blind/breathe3",
+        "pitch": 0.85
+      },
+      {
+        "name": "lasttrain:blind/breathe4",
+        "pitch": 0.85
+      },
+      {
+        "name": "lasttrain:blind/breathe5",
+        "pitch": 0.85
+      }
+    ]
+  },
+  "entity.blind_one.click": {
+    "sounds": [
+      {
+        "name": "lasttrain:blind/click1"
+      },
+      {
+        "name": "lasttrain:blind/click2"
+      },
+      {
+        "name": "lasttrain:blind/click3"
+      },
+      {
+        "name": "lasttrain:blind/click4"
+      }
+    ],
+    "subtitle": "subtitles.lasttrain.blind_click"
+  },
+  "entity.blind_one.snarl": {
+    "sounds": [
+      {
+        "name": "lasttrain:blind/snarl1"
+      },
+      {
+        "name": "lasttrain:blind/snarl2"
+      },
+      {
+        "name": "lasttrain:blind/snarl3"
+      },
+      {
+        "name": "lasttrain:blind/snarl4"
+      }
+    ],
+    "subtitle": "subtitles.lasttrain.blind_snarl"
+  },
+  "entity.blind_one.scream": {
+    "sounds": [
+      {
+        "name": "lasttrain:blind/scream1"
+      },
+      {
+        "name": "lasttrain:blind/scream2"
+      }
+    ]
+  },
+  "entity.blind_one.attack": {
+    "sounds": [
+      {
+        "name": "lasttrain:blind/attack1"
+      },
+      {
+        "name": "lasttrain:blind/attack2"
+      },
+      {
+        "name": "lasttrain:blind/attack3"
+      }
+    ]
+  },
+  "entity.blind_one.step": {
+    "sounds": [
+      {
+        "name": "lasttrain:blind/step1",
+        "pitch": 0.8
+      },
+      {
+        "name": "lasttrain:blind/step2",
+        "pitch": 0.8
+      },
+      {
+        "name": "lasttrain:blind/step3",
+        "pitch": 0.8
+      },
+      {
+        "name": "lasttrain:blind/step4",
+        "pitch": 0.8
+      },
+      {
+        "name": "lasttrain:blind/step5",
+        "pitch": 0.8
+      },
+      {
+        "name": "lasttrain:blind/step6",
+        "pitch": 0.8
+      },
+      {
+        "name": "lasttrain:blind/step7",
+        "pitch": 0.8
+      },
+      {
+        "name": "lasttrain:blind/step8",
+        "pitch": 0.8
+      }
+    ]
+  },
+  "ambient.heartbeat": {
+    "sounds": [
+      {
+        "name": "lasttrain:blind/heartbeat1"
+      },
+      {
+        "name": "lasttrain:blind/heartbeat2"
+      },
+      {
+        "name": "lasttrain:blind/heartbeat3"
+      }
+    ]
+  }
+}

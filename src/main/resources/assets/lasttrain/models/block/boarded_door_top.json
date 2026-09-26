@@ -1,0 +1,953 @@
+{
+  "credit": "The Last Train - boarded-up door",
+  "textures": {
+    "door": "lasttrain:block/old_door_top",
+    "board": "lasttrain:block/nailed_board",
+    "nail": "lasttrain:block/lamp_iron",
+    "particle": "lasttrain:block/nailed_board"
+  },
+  "elements": [
+    {
+      "name": "door",
+      "from": [
+        0,
+        0,
+        6.5
+      ],
+      "to": [
+        16,
+        16,
+        9.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#door"
+        },
+        "south": {
+          "uv": [
+            16,
+            0,
+            0,
+            16
+          ],
+          "texture": "#door"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            3,
+            16
+          ],
+          "texture": "#door"
+        },
+        "west": {
+          "uv": [
+            13,
+            0,
+            16,
+            16
+          ],
+          "texture": "#door"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            3
+          ],
+          "texture": "#door"
+        }
+      }
+    },
+    {
+      "name": "front_bar",
+      "from": [
+        -1,
+        4,
+        5.0
+      ],
+      "to": [
+        17,
+        7,
+        6.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            3
+          ],
+          "texture": "#board"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            3
+          ],
+          "texture": "#board"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            1.5,
+            3
+          ],
+          "texture": "#board"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            1.5,
+            3
+          ],
+          "texture": "#board"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            1.5
+          ],
+          "texture": "#board"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            1.5
+          ],
+          "texture": "#board"
+        }
+      }
+    },
+    {
+      "name": "front_bar_nail0",
+      "from": [
+        0.5,
+        5.0,
+        4.5
+      ],
+      "to": [
+        1.5,
+        6.0,
+        5.0
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        }
+      }
+    },
+    {
+      "name": "front_bar_nail1",
+      "from": [
+        14.5,
+        5.0,
+        4.5
+      ],
+      "to": [
+        15.5,
+        6.0,
+        5.0
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        }
+      }
+    },
+    {
+      "name": "front_slant",
+      "from": [
+        -2,
+        10,
+        5.0
+      ],
+      "to": [
+        18,
+        13,
+        6.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            3
+          ],
+          "texture": "#board"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            3
+          ],
+          "texture": "#board"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            1.5,
+            3
+          ],
+          "texture": "#board"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            1.5,
+            3
+          ],
+          "texture": "#board"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            1.5
+          ],
+          "texture": "#board"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            1.5
+          ],
+          "texture": "#board"
+        }
+      },
+      "rotation": {
+        "angle": -22.5,
+        "axis": "z",
+        "origin": [
+          8,
+          11.5,
+          5.75
+        ]
+      }
+    },
+    {
+      "name": "front_slant_nail0",
+      "from": [
+        -0.5,
+        11.0,
+        4.5
+      ],
+      "to": [
+        0.5,
+        12.0,
+        5.0
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        }
+      },
+      "rotation": {
+        "angle": -22.5,
+        "axis": "z",
+        "origin": [
+          8,
+          11.5,
+          5.75
+        ]
+      }
+    },
+    {
+      "name": "front_slant_nail1",
+      "from": [
+        15.5,
+        11.0,
+        4.5
+      ],
+      "to": [
+        16.5,
+        12.0,
+        5.0
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        }
+      },
+      "rotation": {
+        "angle": -22.5,
+        "axis": "z",
+        "origin": [
+          8,
+          11.5,
+          5.75
+        ]
+      }
+    },
+    {
+      "name": "back_bar",
+      "from": [
+        -1,
+        4,
+        9.5
+      ],
+      "to": [
+        17,
+        7,
+        11.0
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            3
+          ],
+          "texture": "#board"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            3
+          ],
+          "texture": "#board"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            1.5,
+            3
+          ],
+          "texture": "#board"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            1.5,
+            3
+          ],
+          "texture": "#board"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            1.5
+          ],
+          "texture": "#board"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            1.5
+          ],
+          "texture": "#board"
+        }
+      }
+    },
+    {
+      "name": "back_bar_nail0",
+      "from": [
+        0.5,
+        5.0,
+        11.0
+      ],
+      "to": [
+        1.5,
+        6.0,
+        11.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        }
+      }
+    },
+    {
+      "name": "back_bar_nail1",
+      "from": [
+        14.5,
+        5.0,
+        11.0
+      ],
+      "to": [
+        15.5,
+        6.0,
+        11.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        }
+      }
+    },
+    {
+      "name": "back_slant",
+      "from": [
+        -2,
+        10,
+        9.5
+      ],
+      "to": [
+        18,
+        13,
+        11.0
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            3
+          ],
+          "texture": "#board"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            3
+          ],
+          "texture": "#board"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            1.5,
+            3
+          ],
+          "texture": "#board"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            1.5,
+            3
+          ],
+          "texture": "#board"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            1.5
+          ],
+          "texture": "#board"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            1.5
+          ],
+          "texture": "#board"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "z",
+        "origin": [
+          8,
+          11.5,
+          10.25
+        ]
+      }
+    },
+    {
+      "name": "back_slant_nail0",
+      "from": [
+        -0.5,
+        11.0,
+        11.0
+      ],
+      "to": [
+        0.5,
+        12.0,
+        11.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "z",
+        "origin": [
+          8,
+          11.5,
+          10.25
+        ]
+      }
+    },
+    {
+      "name": "back_slant_nail1",
+      "from": [
+        15.5,
+        11.0,
+        11.0
+      ],
+      "to": [
+        16.5,
+        12.0,
+        11.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            0.5,
+            1
+          ],
+          "texture": "#nail"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            1,
+            0.5
+          ],
+          "texture": "#nail"
+        }
+      },
+      "rotation": {
+        "angle": 22.5,
+        "axis": "z",
+        "origin": [
+          8,
+          11.5,
+          10.25
+        ]
+      }
+    }
+  ]
+}

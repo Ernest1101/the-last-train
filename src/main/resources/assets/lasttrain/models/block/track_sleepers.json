@@ -1,0 +1,41 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "lasttrain:block/track_sleepers",
+    "sleepers": "lasttrain:block/track_sleepers"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        1,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#sleepers"
+        },
+        "south": {
+          "texture": "#sleepers"
+        },
+        "east": {
+          "texture": "#sleepers"
+        },
+        "west": {
+          "texture": "#sleepers"
+        },
+        "up": {
+          "texture": "#sleepers"
+        },
+        "down": {
+          "texture": "#sleepers"
+        }
+      }
+    }
+  ]
+}

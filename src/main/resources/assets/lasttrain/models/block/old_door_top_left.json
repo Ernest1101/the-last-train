@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left",
+  "textures": {
+    "bottom": "lasttrain:block/old_door_bottom",
+    "top": "lasttrain:block/old_door_top"
+  }
+}

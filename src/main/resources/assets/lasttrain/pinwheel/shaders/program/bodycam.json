@@ -1,0 +1,10 @@
+{
+  "vertex": "veil:blit_screen",
+  "fragment": "lasttrain:bodycam",
+  "textures": {
+    "VhsNoise": {
+      "type": "location",
+      "location": "lasttrain:textures/shaders/vhs_noise.png"
+    }
+  }
+}
