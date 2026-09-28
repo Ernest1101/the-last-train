@@ -2,6 +2,7 @@ package com.lasttrain.client;
 
 import com.lasttrain.entity.BlindOneEntity;
 import com.lasttrain.entity.TrainEntity;
+import com.lasttrain.game.HouseBuilder;
 import com.lasttrain.network.ModNetwork;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -16,14 +17,14 @@ import org.jetbrains.annotations.Nullable;
  *     <li>escaped: the wagon at the platform, the Blind One coming out of the front door, then the Blind One
  *     on the platform screaming after the train as it disappears;</li>
  *     <li>missed: the train leaving the station without you;</li>
- *     <li>freed: the silent house seen from the path, then the camera rises up and away from it.</li>
+ *     <li>freed: the house catches fire from the inside while the camera rises up and away from it.</li>
  * </ul>
  * The ending text waits until the cutscene has faded to black.
  */
 public final class Cutscene {
 	private static final int ESCAPE_LENGTH = 190;
 	private static final int MISSED_LENGTH = 110;
-	private static final int FREED_LENGTH = 170;
+	private static final int FREED_LENGTH = 230;
 	private static final int FADE = 22;
 
 	public record Frame(Vec3 eye, float yRot, float xRot) {
@@ -89,6 +90,9 @@ public final class Cutscene {
 		if (train != null) {
 			trainFallback = train.position();
 		}
+		if (kind == ModNetwork.ENDING_FREED) {
+			burn(mc);
+		}
 		if (++ticks >= length) {
 			int ending = queuedEnding;
 			reset();
@@ -125,12 +129,12 @@ public final class Cutscene {
 			return look(eye, train.add(0.0, 2.0, 0.0));
 		}
 		// freed: the silent house from the path, then rising up and away from it into the night
-		if (t < 70) {
-			float p = t / 70.0f;
+		if (t < 90) {
+			float p = t / 90.0f;
 			Vec3 eye = new Vec3(door.x + 1.5, door.y + 1.0, door.z - 7.0 + p * 1.2);
 			return look(eye, new Vec3(door.x, door.y + 6.0, door.z + 4.0));
 		}
-		float p = ease(Mth.clamp((t - 70) / (length - 70.0f), 0.0f, 1.0f));
+		float p = ease(Mth.clamp((t - 90) / (length - 90.0f), 0.0f, 1.0f));
 		Vec3 near = new Vec3(door.x, door.y + 6.0, door.z - 14.0);
 		Vec3 far = new Vec3(door.x, door.y + 30.0, door.z - 46.0);
 		return look(near.lerp(far, p), house);
@@ -160,6 +164,99 @@ public final class Cutscene {
 		float p = (t - 118) / (length - 118.0f);
 		Vec3 eye = new Vec3(spot.x - 2.2 - p * 0.6, spot.y + 2.1, spot.z + 2.6 + p * 0.6);
 		return look(eye, train.add(0.0, 1.8, 0.0));
+	}
+
+	/** Where the flames go, in the order they catch: from the front door up the wall, then the roof. */
+	private static final java.util.List<net.minecraft.core.BlockPos> FIRE = new java.util.ArrayList<>();
+	private static int lit;
+	private static final java.util.Map<net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState> FIRE_STATE = new java.util.HashMap<>();
+
+	/**
+	 * The house burns. The fire is placed in this client's copy of the world only: it lights the house up and
+	 * crackles like real fire, but the server never has it, so it can't spread anywhere.
+	 */
+	private static void burn(Minecraft mc) {
+		net.minecraft.client.multiplayer.ClientLevel level = mc.level;
+		if (level == null) {
+			return;
+		}
+		if (ticks == 1) {
+			planFire(level);
+		}
+		// slowly at first, then everything at once
+		float heat = Mth.clamp((ticks - 5) / 160.0f, 0.0f, 1.0f);
+		int target = (int) (FIRE.size() * heat);
+		net.minecraft.world.level.block.state.BlockState fire = net.minecraft.world.level.block.Blocks.FIRE.defaultBlockState();
+		while (lit < target) {
+			net.minecraft.core.BlockPos pos = FIRE.get(lit++);
+			level.setBlock(pos, FIRE_STATE.getOrDefault(pos, fire), net.minecraft.world.level.block.Block.UPDATE_CLIENTS
+					| net.minecraft.world.level.block.Block.UPDATE_KNOWN_SHAPE);
+		}
+		net.minecraft.util.RandomSource random = level.random;
+		if (lit > 0 && ticks % 2 == 0) {
+			for (int i = 0; i < 1 + (int) (heat * 5); i++) {
+				net.minecraft.core.BlockPos pos = FIRE.get(random.nextInt(lit));
+				level.addAlwaysVisibleParticle(net.minecraft.core.particles.ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, true,
+						pos.getX() + random.nextDouble(), pos.getY() + 0.5, pos.getZ() + random.nextDouble(), 0.0, 0.08, 0.0);
+				level.addAlwaysVisibleParticle(net.minecraft.core.particles.ParticleTypes.LAVA, true,
+						pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0.0, 0.0, 0.0);
+			}
+		}
+		if (ticks % 10 == 0 && lit > 0) {
+			net.minecraft.core.BlockPos pos = FIRE.get(random.nextInt(lit));
+			level.playLocalSound(pos, net.minecraft.sounds.SoundEvents.FIRE_AMBIENT, net.minecraft.sounds.SoundSource.BLOCKS,
+					3.0f + heat * 4.0f, 0.6f + random.nextFloat() * 0.3f, false);
+		}
+		if (ticks == 60 || ticks == 120) {
+			level.playLocalSound(house.x, house.y + 6.0, door.z, net.minecraft.sounds.SoundEvents.GENERIC_EXPLODE,
+					net.minecraft.sounds.SoundSource.BLOCKS, 2.5f, 0.5f, false); // a beam gives way
+		}
+	}
+
+	private static void planFire(net.minecraft.client.multiplayer.ClientLevel level) {
+		FIRE.clear();
+		FIRE_STATE.clear();
+		lit = 0;
+		// the house origin: the centre the server sent is the middle of the (WIDTH, 2*STOREY, DEPTH) box
+		net.minecraft.core.BlockPos o = net.minecraft.core.BlockPos.containing(house.x - HouseBuilder.WIDTH / 2.0 - 0.5,
+				house.y - HouseBuilder.STOREY - 0.5, house.z - HouseBuilder.DEPTH / 2.0 - 0.5);
+		java.util.Random random = new java.util.Random(o.asLong());
+		java.util.List<java.util.Map.Entry<Double, net.minecraft.core.BlockPos>> plan = new java.util.ArrayList<>();
+		net.minecraft.world.level.block.state.BlockState onWall = net.minecraft.world.level.block.Blocks.FIRE.defaultBlockState()
+				.setValue(net.minecraft.world.level.block.FireBlock.SOUTH, true);
+		for (int x = -1; x <= HouseBuilder.WIDTH + 1; x++) {
+			double fromDoor = Math.abs(x - HouseBuilder.DOOR_X);
+			// up the front wall, starting at the door
+			for (int y = 1; y <= 2 * HouseBuilder.STOREY; y++) {
+				net.minecraft.core.BlockPos pos = o.offset(x, y, -1);
+				if (!level.getBlockState(pos).canBeReplaced()) {
+					continue;
+				}
+				boolean wall = level.getBlockState(pos.south()).isSolid();
+				boolean floor = level.getBlockState(pos.below()).isSolid();
+				// patches of flame, not a sheet of it: a cell burns if its patch does, and only some cells of a patch
+				int patch = (x / 4) * 31 + (y / 3) * 17;
+				boolean burningPatch = new java.util.Random(o.asLong() ^ patch).nextFloat() < 0.45f;
+				if ((wall || floor) && (floor ? random.nextFloat() < 0.6f : burningPatch && random.nextFloat() < 0.45f)) {
+					plan.add(java.util.Map.entry(y * 1.3 + fromDoor * 0.25 + random.nextDouble() * 4.0, pos));
+					FIRE_STATE.put(pos, wall && !floor ? onWall : net.minecraft.world.level.block.Blocks.FIRE.defaultBlockState());
+				}
+			}
+			// the roof, last
+			for (int z = 0; z <= HouseBuilder.DEPTH; z++) {
+				for (int y = 2 * HouseBuilder.STOREY + 8; y > HouseBuilder.STOREY; y--) {
+					net.minecraft.core.BlockPos pos = o.offset(x, y, z);
+					if (!level.getBlockState(pos).isAir()) {
+						if (level.getBlockState(pos.above()).isAir() && random.nextFloat() < 0.4f) {
+							plan.add(java.util.Map.entry(16.0 + fromDoor * 0.15 + random.nextDouble() * 10.0, pos.above()));
+						}
+						break;
+					}
+				}
+			}
+		}
+		plan.sort(java.util.Map.Entry.comparingByKey());
+		plan.forEach(entry -> FIRE.add(entry.getValue()));
 	}
 
 	private static Frame look(Vec3 eye, Vec3 target) {
