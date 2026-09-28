@@ -436,6 +436,7 @@ public final class GameSession {
 		session.stage = Stage.FINISHED;
 		List<ServerPlayer> everyone = session.onlinePlayers();
 		for (ServerPlayer p : everyone) {
+			session.cutscene(p, ModNetwork.ENDING_FREED, -1);
 			ModNetwork.sendEnding(p, ModNetwork.ENDING_FREED);
 		}
 		CurseManager.onCurseLifted(player.getServer());
@@ -474,8 +475,42 @@ public final class GameSession {
 		}
 	}
 
-	public static void onBoarded(ServerPlayer player) {
+	public static void onBoarded(ServerPlayer player, TrainEntity train) {
 		player.displayClientMessage(Component.translatable("message.lasttrain.boarded").withStyle(ChatFormatting.GREEN), true);
+		if (current != null && current.level == player.level()) {
+			current.cutscene(player, ModNetwork.ENDING_ESCAPED, train.getId());
+		}
+	}
+
+	/** The doors have closed: the Blind One comes out of the house and follows the train onto the platform. */
+	public static void onTrainDeparting(TrainEntity train) {
+		GameSession session = current;
+		if (session == null || session.level != train.level() || train.getPassengers().isEmpty()) {
+			return;
+		}
+		AABB house = new AABB(session.layout.houseMin(), session.layout.houseMax()).inflate(64.0);
+		Vec3 door = session.doorInside();
+		session.level.getEntitiesOfClass(BlindOneEntity.class, house).stream()
+				.filter(monster -> !monster.isDeadOrDying())
+				.min(java.util.Comparator.comparingDouble(monster -> monster.distanceToSqr(door)))
+				.ifPresent(monster -> monster.beginFinale(session.platformSpot(), door, train));
+	}
+
+	private Vec3 doorInside() {
+		BlockPos door = this.layout.exitDoor();
+		return new Vec3(door.getX() + 0.5, door.getY(), door.getZ() + 1.5);
+	}
+
+	private Vec3 platformSpot() {
+		BlockPos o = this.layout.origin();
+		return new Vec3(o.getX() + HouseBuilder.DOOR_X + 0.5, o.getY() + 2.0, o.getZ() + HouseBuilder.RAIL_Z + 3.5);
+	}
+
+	private void cutscene(ServerPlayer player, int kind, int trainId) {
+		BlockPos door = this.layout.exitDoor();
+		Vec3 house = Vec3.atCenterOf(this.layout.houseMin()).add(Vec3.atCenterOf(this.layout.houseMax())).scale(0.5);
+		ModNetwork.sendCutscene(player, kind, trainId, new Vec3(door.getX() + 0.5, door.getY(), door.getZ() + 0.5),
+				this.platformSpot(), house);
 	}
 
 	/** Called once the train is 40 blocks past the platform. */
@@ -487,6 +522,7 @@ public final class GameSession {
 		if (current != null) {
 			for (ServerPlayer player : current.onlinePlayers()) {
 				if (!riders.contains(player)) {
+					current.cutscene(player, ModNetwork.ENDING_MISSED, train.getId());
 					ModNetwork.sendEnding(player, ModNetwork.ENDING_MISSED);
 					everyone.add(player);
 				}

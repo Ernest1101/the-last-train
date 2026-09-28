@@ -25,7 +25,7 @@ public class GameRendererMixin {
 	/** No hands in the rewound footage: the camera isn't where the player is. */
 	@Inject(method = "renderItemInHand", at = @At("HEAD"), cancellable = true)
 	private void lasttrain$noHandsWhileRewinding(PoseStack poseStack, Camera camera, float partialTicks, CallbackInfo ci) {
-		if (RewindEffect.active()) {
+		if (RewindEffect.active() || com.lasttrain.client.Cutscene.active()) {
 			ci.cancel();
 		}
 	}

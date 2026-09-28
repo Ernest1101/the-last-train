@@ -11,7 +11,8 @@
     "ClientLevelMixin",
     "PauseScreenMixin",
     "PauseScreenAccessor",
-    "VillagerRendererMixin"
+    "VillagerRendererMixin",
+    "GuiMixin"
   ],
   "injectors": {
     "defaultRequire": 1

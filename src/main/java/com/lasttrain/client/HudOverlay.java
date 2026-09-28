@@ -130,6 +130,17 @@ public final class HudOverlay {
 		g.pose().popPose();
 	}
 
+	/** Letterbox bars and the fade to black of an ending cutscene. */
+	public static void renderCutscene(GuiGraphics g, int w, int h, float partialTicks) {
+		int bar = h / 9;
+		g.fill(0, 0, w, bar, 0xFF000000);
+		g.fill(0, h - bar, w, h, 0xFF000000);
+		float black = Cutscene.blackout(partialTicks);
+		if (black > 0.0f) {
+			g.fill(0, 0, w, h, (int) (black * 255.0f) << 24);
+		}
+	}
+
 	/** "REW" over the rewinding tape, then "PLAY". */
 	private static void renderRewind(GuiGraphics g, Font font, int w, int h, int ticks) {
 		boolean rewinding = RewindEffect.active();

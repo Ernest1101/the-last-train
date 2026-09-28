@@ -18,8 +18,8 @@ public final class BodycamCamera {
 	public static void apply(PoseStack poseStack, float partialTicks) {
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;
-		if (!ClientState.bodycamEnabled || player == null) {
-			return;
+		if (!ClientState.bodycamEnabled || player == null || Cutscene.active()) {
+			return; // the cutscene is shot from a tripod
 		}
 		float t = (player.tickCount + partialTicks) / 20.0f;
 		float steady = ClientState.holding ? 0.35f : 1.0f;

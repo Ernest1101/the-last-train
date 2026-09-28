@@ -42,6 +42,8 @@ public final class ModNetwork {
 	public static final ResourceLocation DOPPEL_SCARE = LastTrain.id("doppel_scare");
 	/** S2C: you died in the house; rewind the tape after the respawn. */
 	public static final ResourceLocation REWIND = LastTrain.id("rewind");
+	/** S2C: varint kind (an ENDING_* id), varint train id or -1, then three points: door, platform spot, house centre. */
+	public static final ResourceLocation CUTSCENE = LastTrain.id("cutscene");
 	public static final int ENDING_ESCAPED = 0;
 	public static final int ENDING_MISSED = 1;
 	/** The family photo burned: the curse is lifted. */
@@ -77,6 +79,19 @@ public final class ModNetwork {
 
 	public static void sendScare(ServerPlayer player) {
 		ServerPlayNetworking.send(player, SCARE, PacketByteBufs.empty());
+	}
+
+	public static void sendCutscene(ServerPlayer player, int kind, int trainId, net.minecraft.world.phys.Vec3 door,
+									net.minecraft.world.phys.Vec3 spot, net.minecraft.world.phys.Vec3 house) {
+		FriendlyByteBuf buf = PacketByteBufs.create();
+		buf.writeVarInt(kind);
+		buf.writeVarInt(trainId);
+		for (net.minecraft.world.phys.Vec3 v : new net.minecraft.world.phys.Vec3[]{door, spot, house}) {
+			buf.writeDouble(v.x);
+			buf.writeDouble(v.y);
+			buf.writeDouble(v.z);
+		}
+		ServerPlayNetworking.send(player, CUTSCENE, buf);
 	}
 
 	public static void sendEnding(ServerPlayer player, int ending) {

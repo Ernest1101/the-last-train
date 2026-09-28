@@ -110,6 +110,7 @@ public class TrainEntity extends Entity implements GeoEntity {
 					this.phase = Phase.DEPARTING;
 					this.departStartX = this.getX();
 					this.playSound(SoundEvents.IRON_DOOR_CLOSE, 3.0f, 0.5f);
+					GameSession.onTrainDeparting(this);
 				}
 			}
 			case DEPARTING -> {
@@ -164,7 +165,7 @@ public class TrainEntity extends Entity implements GeoEntity {
 		if (player.startRiding(this, true)) {
 			this.boarded = true;
 			this.playSound(SoundEvents.IRON_DOOR_OPEN, 2.0f, 0.7f);
-			GameSession.onBoarded(player);
+			GameSession.onBoarded(player, this);
 		}
 	}
 

@@ -62,9 +62,10 @@ public final class ModRegistry {
 	public static final EntityType<BlindOneEntity> BLIND_ONE = Registry.register(BuiltInRegistries.ENTITY_TYPE,
 			LastTrain.id("blind_one"),
 			FabricEntityTypeBuilder.create(MobCategory.MONSTER, BlindOneEntity::new)
-					// 0.6 wide like other mobs: an open door leaves a gap of 0.81, and at 0.7 it caught on the door leaf
-					.dimensions(EntityDimensions.fixed(0.6f, 1.95f))
-					.trackRangeBlocks(64)
+					// 0.6 wide like other mobs: an open door leaves a gap of 0.81, and at 0.7 it caught on the door leaf;
+					// under 1.9 tall so that standing on a rug (1/16) it still fits under a two-block door frame
+					.dimensions(EntityDimensions.fixed(0.6f, 1.9f))
+					.trackRangeBlocks(128) // seen from the departing train in the escape cutscene
 					.build());
 
 	public static final EntityType<TrainEntity> TRAIN = Registry.register(BuiltInRegistries.ENTITY_TYPE,

@@ -122,6 +122,12 @@ public class BlindOneEntity extends Monster implements GeoEntity {
 	private boolean running;
 	/** How many times it has tapped a wardrobe with somebody inside (for the tests). */
 	public int wardrobeTaps;
+	/** The finale: the train is leaving and it walks out onto the platform after it. Null the rest of the time. */
+	@Nullable
+	private Vec3 finaleSpot;
+	@Nullable
+	private Entity finaleLook;
+	private boolean finaleScreamed;
 	@Nullable
 	private Vec3 lastOutsidePos;
 
@@ -154,6 +160,7 @@ public class BlindOneEntity extends Monster implements GeoEntity {
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
+		this.goalSelector.addGoal(1, new FinaleGoal());
 		this.goalSelector.addGoal(1, new OpenDoorGoal(this, true));
 		this.goalSelector.addGoal(2, new HuntGoal());
 		this.goalSelector.addGoal(3, new StalkGoal());
@@ -167,7 +174,7 @@ public class BlindOneEntity extends Monster implements GeoEntity {
 
 	/** Called by the noise system. {@code strength} is 1 at the source and 0 at the edge of the radius. */
 	public void hear(Vec3 pos, float strength, @Nullable Entity source) {
-		if (this.isDeadOrDying()) {
+		if (this.isDeadOrDying() || this.finaleSpot != null) {
 			return;
 		}
 		HouseBuilder.SafeRoom safeRoom = GameSession.safeRoomAt(this.level(), pos);
@@ -210,6 +217,9 @@ public class BlindOneEntity extends Monster implements GeoEntity {
 
 	/** It has you: from the noise you made, the echo of a click or a bump. */
 	private void sense(Player player, Vec3 at) {
+		if (this.finaleSpot != null) {
+			return;
+		}
 		if (this.prey != player) {
 			this.playSound(ModSounds.BLIND_SNARL, 1.6f, 0.9f + this.random.nextFloat() * 0.2f);
 			this.remember(player.blockPosition());
@@ -268,7 +278,7 @@ public class BlindOneEntity extends Monster implements GeoEntity {
 	@Override
 	public void aiStep() {
 		super.aiStep();
-		if (this.level().isClientSide) {
+		if (this.level().isClientSide || this.finaleSpot != null) {
 			return;
 		}
 		this.noiseAge++;
@@ -739,6 +749,66 @@ public class BlindOneEntity extends Monster implements GeoEntity {
 	}
 
 	/** Sometimes it just stops in a doorway or a corner and waits, silent, head bowed. You may walk right into it. */
+	/**
+	 * The last train is leaving: it comes out of the front door, walks onto the platform and stands there
+	 * screaming after the train. Nobody is hunted any more.
+	 */
+	public void beginFinale(Vec3 spot, Vec3 door, Entity train) {
+		this.prey = null;
+		this.noisePos = null;
+		this.searchTicks = 0;
+		this.lurkTicks = 0;
+		this.alertTicks = 0;
+		this.finaleSpot = spot;
+		this.finaleLook = train;
+		this.teleportTo(door.x, door.y, door.z);
+		this.getNavigation().stop();
+	}
+
+	public boolean inFinale() {
+		return this.finaleSpot != null;
+	}
+
+	private class FinaleGoal extends Goal {
+		FinaleGoal() {
+			this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.JUMP));
+		}
+
+		@Override
+		public boolean requiresUpdateEveryTick() {
+			return true;
+		}
+
+		@Override
+		public boolean canUse() {
+			return BlindOneEntity.this.finaleSpot != null;
+		}
+
+		@Override
+		public void tick() {
+			BlindOneEntity self = BlindOneEntity.this;
+			Vec3 spot = self.finaleSpot;
+			if (spot == null) {
+				return;
+			}
+			if (self.position().distanceToSqr(spot.x, self.getY(), spot.z) > 1.5 * 1.5) {
+				if (self.tickCount % 10 == 0 || self.getNavigation().isDone()) {
+					self.getNavigation().moveTo(spot.x, spot.y, spot.z, 1.3);
+				}
+				return;
+			}
+			self.getNavigation().stop();
+			Entity train = self.finaleLook;
+			if (train != null && !train.isRemoved()) {
+				self.getLookControl().setLookAt(train.getX(), train.getY() + 2.0, train.getZ(), 30.0f, 30.0f);
+			}
+			if (!self.finaleScreamed) {
+				self.finaleScreamed = true;
+				self.playSound(ModSounds.BLIND_SCREAM, 4.0f, 0.8f);
+			}
+		}
+	}
+
 	private class LurkGoal extends Goal {
 		LurkGoal() {
 			this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));

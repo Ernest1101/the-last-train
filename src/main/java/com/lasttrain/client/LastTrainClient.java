@@ -84,14 +84,26 @@ public class LastTrainClient implements ClientModInitializer {
 			client.execute(() -> {
 				ClientState.lensCracked = false;
 				ClientState.hidden = false;
-				client.setScreen(new EndingScreen(ending));
+				if (!Cutscene.deferEnding(ending)) {
+					client.setScreen(new EndingScreen(ending));
+				}
 			});
+		});
+		ClientPlayNetworking.registerGlobalReceiver(ModNetwork.CUTSCENE, (client, handler, buf, responseSender) -> {
+			int kind = buf.readVarInt();
+			int train = buf.readVarInt();
+			net.minecraft.world.phys.Vec3[] points = new net.minecraft.world.phys.Vec3[3];
+			for (int i = 0; i < 3; i++) {
+				points[i] = new net.minecraft.world.phys.Vec3(buf.readDouble(), buf.readDouble(), buf.readDouble());
+			}
+			client.execute(() -> Cutscene.start(kind, train, points[0], points[1], points[2]));
 		});
 
 		ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
 			ClientState.reset();
 			CurseClient.reset();
 			RewindEffect.reset();
+			Cutscene.reset();
 			sentHold = false;
 		});
 		HudRenderCallback.EVENT.register(HudOverlay::render);
@@ -105,6 +117,7 @@ public class LastTrainClient implements ClientModInitializer {
 		CurseClient.tick(mc);
 		DroneSound.update(mc);
 		RewindEffect.tick(mc);
+		Cutscene.tick(mc);
 		while (toggleBodycamKey.consumeClick()) {
 			ClientState.bodycamEnabled = !ClientState.bodycamEnabled;
 		}

@@ -246,6 +246,13 @@ public class LastTrainPlaythroughTests implements FabricGameTest {
 				})
 				.thenWaitUntil(() -> check(player.getVehicle() instanceof TrainEntity, "climbing onto the train didn't board it"))
 				.thenWaitUntil(() -> check(GameSession.current() != session, "the train left but the game didn't end"))
+				.thenWaitUntil(() -> {
+					// the finale of the cutscene: it came out of the house and stands on the platform after the train
+					Vec3 platform = new Vec3(o.getX() + HouseBuilder.DOOR_X + 0.5, o.getY() + 2.0, o.getZ() + HouseBuilder.RAIL_Z + 3.5);
+					check(level.getEntitiesOfClass(BlindOneEntity.class, railway.inflate(0, 4, 40)).stream()
+							.anyMatch(m -> m.inFinale() && m.position().distanceToSqr(platform.x, m.getY(), platform.z) < 2.5 * 2.5),
+							"the Blind One didn't come out onto the platform after the train");
+				})
 				.thenExecute(() -> cleanUp(helper, feet, player))
 				.thenSucceed();
 	}
